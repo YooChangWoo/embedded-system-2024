@@ -3,12 +3,11 @@
 ## 심화과정
 # IoT 시스템개발자 심화 임베디드 시스템 학습 리포지토리 = 라즈베리 파일에 다 넣어 놓음
 
-## 1일차
+## 1일차, 2일차
 - 개발환경 설치
     - Visual Studio 2022 Community 설치
     - C, C++ 소스코드 실행
     - C++에 대해 설명
-## 2일차
 - sudo apt update
 
 - sudo apt upgrade -y
@@ -31,13 +30,27 @@
 
 - enum(열거형)
 
+- 별 찍기
+
 - func(함수 정의 -> 함수 호출)
     - 함수 선언 -> 함수 호출 -> 함수 정의
 - input 선언
 
 - C언어로 계산기 만들기
 
-3일차
+- node로 이용한 list
+    - freeList
+    - showNode
+    - addNode(전위함수)
+    - appendNode(후위함수)
+    - 연결 리스트의 노드 구조체 정의
+    - delete
+
+## 3일차
+- typedef struct => node *head;
+- headNode createHeadNode
+- freeList
+- malloc 함수
 4일차
 5일차
 6일차
