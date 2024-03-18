@@ -51,7 +51,14 @@
 - headNode createHeadNode
 - freeList
 - malloc 함수
-4일차
+
+## 4일차
+- 배열로 구현
+	- push, pop
+- 연결리스트 구현
+	-queue
+		- front, rear
+		- 큐, 큐 for문
 5일차
 6일차
 7일차
