@@ -1,4 +1,4 @@
-/* 연결리스트로 구현*/       /stack02
+/* 연결리스트로 구현*/     
 #include <stdio.h>
 #define STACK_SZ 10
 
@@ -32,9 +32,7 @@ int pop(stack* pstk) {
         printf("Stack Underflow!\n"); // 스택이 비어있으면 언더플로우 메시지 출력
         return -1; // 에러를 나타내는 값 반환
     }
-    int value = pstk->buf[(pstk->top)]; // pop할 값을 임시 변수에 저장
-    (pstk->top)--; // 스택의 top을 감소시킴
-    return value; // 저장한 값을 반환
+    return pstk->buf[(pstk->top)--]; // 스택의 top을 감소시키고 해당 위치의 값을 반환
 }
 
 int main() {
