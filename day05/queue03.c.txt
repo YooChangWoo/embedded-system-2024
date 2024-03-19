@@ -1,0 +1,68 @@
+/*
+연결 자료구조를 위한 큐
+*/
+#include <stdio.h>
+#include <stdlib.h>
+
+// 노드 구조체 정의
+typedef struct NODE {
+    int data;           // 데이터를 저장하는 변수
+    struct NODE* link;  // 다음 노드를 가리키는 포인터
+} node;
+
+// 큐 구조체 정의
+typedef struct {
+    node* rear;     // 큐의 끝을 가리키는 포인터
+    node* front;    // 큐의 시작을 가리키는 포인터
+} linkQ;
+
+// 큐를 생성하는 함수
+void createLinkQ() {
+    linkQ* lq = (linkQ*) malloc(sizeof(linkQ)); // 큐 구조체에 메모리 할당
+    if (lq == NULL) { // 메모리 할당 실패 시
+        printf("Memory allocation failed!\n"); // 오류 메시지 출력
+        exit(1); // 프로그램 종료
+    }
+    lq->rear = NULL; // rear 포인터 초기화
+    lq->front = NULL; // front 포인터 초기화
+}
+
+// 큐에 데이터를 추가하는 함수
+void enQueue(linkQ* alq, int data) {
+    node* newNode = (node*) malloc(sizeof(node)); // 새로운 노드 생성
+    if (newNode == NULL) { // 메모리 할당 실패 시
+        printf("Memory allocation failed!\n"); // 오류 메시지 출력
+        exit(1); // 프로그램 종료
+    }
+    newNode->data = data; // 새로운 노드에 데이터 저장
+    newNode->link = NULL; // 새로운 노드의 링크 초기화
+
+    if (alq->rear == NULL) { // 큐가 비어있는 경우
+        alq->rear = newNode; // rear 포인터가 새로운 노드를 가리키도록 설정
+        alq->front = newNode; // front 포인터도 새로운 노드를 가리키도록 설정
+    } else { // 큐가 비어있지 않은 경우
+        alq->rear->link = newNode; // 마지막 노드의 링크가 새로운 노드를 가리키도록 설정
+        alq->rear = newNode; // rear 포인터가 새로운 노드를 가리키도록 설정
+    }
+}
+
+// 큐의 내용을 출력하는 함수
+void printQ(linkQ* alq) {
+    node* current = alq->front; // 현재 노드를 front로 초기화
+    while (current != NULL) { // 현재 노드가 NULL이 아닐 때까지 반복
+        printf("%d\n", current->data); // 현재 노드의 데이터 출력
+        current = current->link; // 다음 노드로 이동
+    }
+}
+
+int main() {
+    createLinkQ(); // 큐 생성
+    linkQ* q = (linkQ*) malloc(sizeof(linkQ)); // 큐 구조체에 메모리 할당
+    if (q == NULL) { // 메모리 할당 실패 시
+        printf("Memory allocation failed!\n"); // 오류 메시지 출력
+        exit(1); // 프로그램 종료
+    }
+    enQueue(q, 10); // 큐에 데이터 추가
+    printQ(q); // 큐 출력
+    return 0; // 프로그램 종료
+}

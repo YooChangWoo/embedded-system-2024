@@ -59,7 +59,17 @@
 	-queue
 		- front, rear
 		- 큐, 큐 for문
-5일차
+## 5일차
+- 연결리스트를 이용한 순차료구조
+	- enQueue 
+	- deQueue
+
+-  파일 분할 정리
+    - make파일 만들기
+
+- 연결 자료구조를 위한 큐
+	- deQueue 
+	- printQ 
 6일차
 7일차
 8일차
