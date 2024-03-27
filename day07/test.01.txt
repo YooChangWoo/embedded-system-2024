@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_ID_LENGTH 50
+#define MAX_PW_LENGTH 50
+
+void error_handling(const char* message);
+
+int main(void) {
+    char input_id[MAX_ID_LENGTH];
+    char input_pw[MAX_PW_LENGTH];
+
+    printf("Enter your ID: ");
+    fgets(input_id, MAX_ID_LENGTH, stdin);
+    input_id[strcspn(input_id, "\n")] = 0; // fgets로 입력받은 문자열에 개행 문자 제거
+
+    printf("Enter your password: ");
+    fgets(input_pw, MAX_PW_LENGTH, stdin);
+    input_pw[strcspn(input_pw, "\n")] = 0; // fgets로 입력받은 문자열에 개행 문자 제거
+
+    // 아이디와 비밀번호 확인
+    if (strcmp(input_id, "your_id") == 0 && strcmp(input_pw, "your_password") == 0) {
+        FILE* fp = fopen("myinfo.txt", "r");
+        if (fp == NULL) {
+            error_handling("fopen() error");
+        }
+
+        char buffer[255]; // 파일에서 읽은 내용을 저장할 버퍼
+        while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+            printf("%s", buffer);
+        }
+
+        fclose(fp);
+    } else {
+        printf("Incorrect ID or password.\n");
+    }
+
+    return 0;
+}
+
+void error_handling(const char* message) {
+    perror(message);
+    exit(EXIT_FAILURE);
+}
