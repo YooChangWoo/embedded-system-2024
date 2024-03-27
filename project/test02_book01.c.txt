@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// 책 정보를 담는 구조체
+struct Book {
+    char title[100]; // 책 제목
+    char author[100]; // 저자
+    int year; // 출판년도
+    struct Book *next; // 다음 책을 가리키는 포인터
+};
+
+struct Book *head = NULL; // 책 목록의 첫 번째 책을 가리키는 전역 변수
+
+// 책 추가 함수
+void addBook() {
+    struct Book *newBook = (struct Book *)malloc(sizeof(struct Book)); // 동적으로 메모리 할당
+    if (newBook == NULL) { // 메모리 할당 오류 처리
+        printf("메모리 할당 오류\n");
+        return;
+    }
+
+    // 사용자로부터 책 정보 입력 받기
+    printf("도서 제목: ");
+    scanf("%s", newBook->title);
+    printf("저자: ");
+    scanf("%s", newBook->author);
+    printf("출판년도: ");
+    scanf("%d", &newBook->year);
+
+    // 새로운 책을 리스트의 맨 앞에 추가
+    newBook->next = head;
+    head = newBook;
+}
+
+// 책 검색 함수
+void searchBook() {
+    char title[100];
+    printf("검색할 도서 제목: ");
+    scanf("%s", title);
+
+    struct Book *current = head;
+    while (current != NULL) {
+        if (strcmp(current->title, title) == 0) { // 책 제목이 일치하는 경우
+            printf("도서가 존재합니다.\n");
+            return;
+        }
+        current = current->next;
+    }
+    printf("도서가 존재하지 않습니다.\n");
+}
+
+// 책 삭제 함수
+void deleteBook() {
+    char title[100];
+    printf("삭제할 도서 제목: ");
+    scanf("%s", title);
+
+    struct Book *prev = NULL;
+    struct Book *current = head;
+    while (current != NULL) {
+        if (strcmp(current->title, title) == 0) { // 책 제목이 일치하는 경우
+            if (prev == NULL) { // 삭제할 책이 첫 번째 책인 경우
+                head = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            free(current); // 메모리 해제
+            printf("도서를 삭제했습니다.\n");
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    printf("해당 도서를 찾을 수 없습니다.\n");
+}
+
+// 책 목록 출력 함수
+void printBooks() {
+    printf("도서 목록:\n");
+    struct Book *current = head;
+    while (current != NULL) {
+        printf("%s (%s, %d)\n", current->title, current->author, current->year);
+        current = current->next;
+    }
+}
+
+// 메뉴 함수
+void menu() {
+    int choice;
+    do {
+        printf("\n**** 메뉴 ****\n");
+        printf("1 도서구입\n");
+        printf("2 도서검색\n");
+        printf("3 도서삭제\n");
+        printf("4 도서출력\n");
+        printf("0 종료\n");
+        printf("선택: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addBook();
+                break;
+            case 2:
+                searchBook();
+                break;
+            case 3:
+                deleteBook();
+                break;
+            case 4:
+                printBooks();
+                break;
+            case 0:
+                printf("프로그램을 종료합니다.\n");
+                break;
+            default:
+                printf("잘못된 선택입니다. 다시 선택해주세요.\n");
+        }
+    } while (choice != 0);
+}
+
+// 프로그램 진입점
+void main() {
+    menu(); // 메뉴 함수 호출
+}

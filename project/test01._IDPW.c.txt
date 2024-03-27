@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX_ID_LENGTH 20
+#define MAX_PASSWORD_LENGTH 20
+
+// 사용자 정보 구조체
+struct User {
+    char id[MAX_ID_LENGTH];
+    char password[MAX_PASSWORD_LENGTH];
+    char info[100]; // 예시로 정보를 100자 이내로 가정
+};
+
+// 사용자 정보를 저장한 파일에서 사용자 정보를 읽어오는 함수
+void readUserInfoFromFile(char *id, char *password, struct User *user) {
+    FILE *file = fopen("myinfo.txt", "r"); // "myinfo.txt" 파일을 읽기 모드로 열기
+    if (file == NULL) { // 파일 열기에 실패한 경우
+        printf("사용자 정보 파일을 열 수 없습니다.\n");
+        return;
+    }
+
+    // 파일을 끝까지 읽으면서 사용자 정보 확인
+    while (fscanf(file, "%s %s %[^\n]", user->id, user->password, user->info) != EOF) {
+        // 입력된 아이디와 비밀번호가 일치하는 경우
+        if (strcmp(user->id, id) == 0 && strcmp(user->password, password) == 0) {
+            printf("사용자 정보:\n%s\n", user->info); // 해당 사용자 정보 출력
+            fclose(file); // 파일 닫기
+            return;
+        }
+    }
+
+    // 일치하는 사용자 정보를 찾을 수 없는 경우
+    printf("일치하는 사용자 정보를 찾을 수 없습니다.\n");
+    fclose(file); // 파일 닫기
+}
+
+// 프로그램 진입점
+void main() {
+    char input_id[MAX_ID_LENGTH]; // 입력된 아이디를 저장할 배열
+    char input_password[MAX_PASSWORD_LENGTH]; // 입력된 비밀번호를 저장할 배열
+    struct User user; // 사용자 정보를 저장할 구조체
+
+    printf("아이디를 입력하세요: ");
+    scanf("%s", input_id); // 사용자로부터 아이디 입력 받기
+    printf("비밀번호를 입력하세요: ");
+    scanf("%s", input_password); // 사용자로부터 비밀번호 입력 받기
+
+    readUserInfoFromFile(input_id, input_password, &user); // 사용자 정보 파일에서 정보 읽어오기
+}
